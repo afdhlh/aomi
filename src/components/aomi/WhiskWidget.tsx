@@ -154,7 +154,7 @@ export function WhiskWidget({ flavor }: { flavor: Flavor }) {
 
         <div className="flex justify-center">
           <div
-            data-cursor
+            
             className="relative select-none rounded-full p-4 glass-panel"
             onPointerDown={start}
             onPointerUp={stop}

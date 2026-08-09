@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Leaf, MapPin, Sparkles } from "lucide-react";
-import glassImg from "@/assets/matcha-glass.png";
+import { MapPin, Sparkles } from "lucide-react";
+import glassImg from "@/assets/matcha-glass-mountain.png";
 import { flavors, type Flavor } from "@/lib/flavors";
+import { Chasen, Chashaku, IceShard, UjiMap, particleMap } from "@/components/aomi/props";
 
-const floaters = [
-  { x: -38, y: -22, d: 22, s: 1, icon: "leaf" },
-  { x: 36, y: -30, d: 34, s: 0.8, icon: "ice" },
-  { x: -30, y: 26, d: 16, s: 0.7, icon: "slice" },
-  { x: 33, y: 22, d: 28, s: 0.9, icon: "leaf" },
-  { x: -44, y: 4, d: 12, s: 0.6, icon: "ice" },
-  { x: 45, y: -4, d: 40, s: 0.75, icon: "slice" },
+type FloatSpec = { x: number; y: number; d: number; s: number; kind: "fruit" | "ice" | "chasen" | "chashaku" };
+
+const floaters: FloatSpec[] = [
+  { x: -38, y: -22, d: 22, s: 1, kind: "fruit" },
+  { x: 36, y: -30, d: 34, s: 0.85, kind: "ice" },
+  { x: -30, y: 26, d: 16, s: 0.8, kind: "fruit" },
+  { x: 33, y: 22, d: 28, s: 0.9, kind: "fruit" },
+  { x: -46, y: -2, d: 12, s: 1.1, kind: "chasen" },
+  { x: 46, y: 6, d: 40, s: 1, kind: "chashaku" },
+  { x: -14, y: -36, d: 26, s: 0.7, kind: "ice" },
+  { x: 16, y: 34, d: 20, s: 0.7, kind: "ice" },
 ];
 
 function Floater({
@@ -19,17 +24,18 @@ function Floater({
   py,
   flavor,
 }: {
-  spec: (typeof floaters)[number];
+  spec: FloatSpec;
   px: ReturnType<typeof useSpring>;
   py: ReturnType<typeof useSpring>;
   flavor: Flavor;
 }) {
   const tx = useTransform(px, (v: number) => v * spec.d);
   const ty = useTransform(py, (v: number) => v * spec.d);
+  const Particle = particleMap[flavor.particle];
 
   return (
     <motion.div
-      className="pointer-events-none absolute"
+      className="pointer-events-none absolute will-change-transform"
       style={{
         left: `${50 + spec.x}%`,
         top: `${50 + spec.y}%`,
@@ -40,17 +46,25 @@ function Floater({
       animate={{ y: [0, -14, 0], rotate: [0, 8, 0] }}
       transition={{ duration: 6 + spec.d / 8, repeat: Infinity, ease: "easeInOut" }}
     >
-      {spec.icon === "leaf" ? (
-        <Leaf className="h-8 w-8 text-accent/70" />
-      ) : spec.icon === "ice" ? (
-        <span className="block h-9 w-9 rotate-12 rounded-lg border border-white/70 bg-white/40 backdrop-blur-sm" />
+      {spec.kind === "ice" ? (
+        <IceShard className="h-9 w-9 drop-shadow-sm" />
+      ) : spec.kind === "chasen" ? (
+        <Chasen className="h-24 w-16 opacity-80" />
+      ) : spec.kind === "chashaku" ? (
+        <Chashaku className="h-8 w-24 opacity-80" />
       ) : (
-        <motion.span
-          className="block h-9 w-9 rounded-full"
-          animate={{ backgroundColor: flavor.bottom }}
-          transition={{ duration: 0.8 }}
-          style={{ opacity: 0.75 }}
-        />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={flavor.particle}
+            initial={{ opacity: 0, scale: 0.5, rotate: -30 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.5, rotate: 30 }}
+            transition={{ duration: 0.4 }}
+            className="block"
+          >
+            <Particle className="h-10 w-10 drop-shadow-sm" />
+          </motion.span>
+        </AnimatePresence>
       )}
     </motion.div>
   );
@@ -77,7 +91,6 @@ function Gauge({ label, value, color }: { label: string; value: number; color: s
 export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
   const [index, setIndex] = useState(0);
   const flavor = flavors[index] ?? flavors[0]!;
-
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -112,10 +125,13 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
         transition={{ duration: 1.1 }}
       />
 
+      {/* translucent Uji, Kyoto map outline */}
+      <UjiMap className="pointer-events-none absolute -left-[10%] top-[12%] h-[70vw] w-[70vw] max-h-[760px] max-w-[760px] text-primary/[0.07]" />
+
       {/* kanji watermark */}
       <span
         aria-hidden
-        className="pointer-events-none absolute right-[4%] top-[6%] select-none font-serif text-[26vw] leading-[0.8] text-primary/[0.045] md:text-[20vw]"
+        className="pointer-events-none absolute right-[4%] top-[6%] select-none font-serif text-[26vw] leading-[0.8] text-primary/[0.05] md:text-[20vw]"
         style={{ writingMode: "vertical-rl" }}
       >
         青み
@@ -148,12 +164,12 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             <Floater key={i} spec={f} px={px} py={py} flavor={flavor} />
           ))}
 
-          {/* badges */}
+          {/* rough-edge washi / stone badges */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
-            className="absolute left-0 top-16 hidden rounded-full px-4 py-2.5 glass-panel md:flex md:items-center md:gap-2"
+            className="washi-badge absolute left-0 top-16 hidden px-5 py-3 md:flex md:items-center md:gap-2"
           >
             <Sparkles className="h-3.5 w-3.5 text-gold" />
             <span className="text-[0.62rem] uppercase tracking-[0.2em] text-primary">
@@ -164,7 +180,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.75 }}
-            className="absolute right-0 top-40 hidden rounded-full px-4 py-2.5 glass-panel md:flex md:items-center md:gap-2"
+            className="washi-badge absolute right-0 top-40 hidden px-5 py-3 md:flex md:items-center md:gap-2"
           >
             <MapPin className="h-3.5 w-3.5 text-gold" />
             <span className="text-[0.62rem] uppercase tracking-[0.2em] text-primary">
@@ -172,18 +188,17 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             </span>
           </motion.div>
 
-          {/* stone pedestal */}
-          <div className="absolute bottom-[86px] left-1/2 h-10 w-72 -translate-x-1/2 rounded-[50%] bg-slate-stone/80 blur-[1px] md:w-80" />
-          <div className="absolute bottom-[72px] left-1/2 h-8 w-64 -translate-x-1/2 rounded-[50%] bg-primary/25 blur-xl" />
+          {/* stone pedestal shadow */}
+          <div className="absolute bottom-[78px] left-1/2 h-8 w-72 -translate-x-1/2 rounded-[50%] bg-primary/25 blur-xl md:w-80" />
 
-          {/* glass */}
+          {/* glass on matcha mountain */}
           <motion.div
-            className="absolute bottom-[92px] left-1/2 h-[420px] w-[300px] -translate-x-1/2 md:h-[480px] md:w-[340px]"
+            className="absolute bottom-[80px] left-1/2 h-[430px] w-[310px] -translate-x-1/2 will-change-transform md:h-[500px] md:w-[360px]"
             style={{ x: glassX, y: glassY }}
           >
             <img
               src={glassImg}
-              alt="Layered iced ceremonial matcha latte in a ribbed glass on slate stone"
+              alt="Ribbed glass of layered iced ceremonial matcha latte with gold kintsugi veins, set on a mountain of matcha powder over a slate stone"
               width={1024}
               height={1408}
               className="h-full w-full object-contain"
@@ -191,17 +206,17 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             {/* liquid morph overlay masked to the glass silhouette */}
             <motion.div
               aria-hidden
-              className="absolute inset-0 mix-blend-multiply"
+              className="absolute inset-x-0 top-0 h-[62%] mix-blend-multiply"
               animate={{
-                background: `linear-gradient(to bottom, transparent 8%, ${flavor.top} 26%, ${flavor.top} 46%, ${flavor.bottom} 66%, ${flavor.bottom} 96%)`,
+                background: `linear-gradient(to bottom, transparent 6%, ${flavor.top} 22%, ${flavor.top} 46%, ${flavor.bottom} 70%, ${flavor.bottom} 98%)`,
               }}
               transition={{ duration: 1, ease: "easeInOut" }}
               style={{
                 maskImage: `url(${glassImg})`,
-                maskSize: "contain",
+                maskSize: "100% 161%",
                 maskRepeat: "no-repeat",
-                maskPosition: "center",
-                opacity: 0.85,
+                maskPosition: "top center",
+                opacity: 0.82,
               }}
             />
           </motion.div>
@@ -215,8 +230,8 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
                 <motion.button
                   key={f.id}
                   onClick={() => setIndex(i)}
-                  data-cursor
-                  className="absolute left-1/2 top-6 w-[150px] origin-bottom rounded-2xl p-3 text-left glass-panel md:w-[168px]"
+                  aria-label={`Select ${f.name}`}
+                  className="washi-badge absolute left-1/2 top-6 w-[150px] origin-bottom rounded-2xl p-3 text-left will-change-transform md:w-[168px]"
                   animate={{
                     x: offset * 132 - 84,
                     y: Math.abs(offset) * 26 + (active ? -26 : 0),
