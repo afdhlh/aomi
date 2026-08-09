@@ -76,7 +76,8 @@ function Gauge({ label, value, color }: { label: string; value: number; color: s
 
 export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
   const [index, setIndex] = useState(0);
-  const flavor = flavors[index];
+  const flavor = flavors[index] ?? flavors[0]!;
+
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
