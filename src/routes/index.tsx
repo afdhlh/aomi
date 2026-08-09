@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { flavors, type Flavor } from "@/lib/flavors";
-import { MagneticCursor } from "@/components/aomi/MagneticCursor";
+
 import { Header } from "@/components/aomi/Header";
 import { Hero } from "@/components/aomi/Hero";
 import { WhiskWidget } from "@/components/aomi/WhiskWidget";
@@ -56,7 +56,7 @@ function Index() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-background">
-      <MagneticCursor />
+      
       <Header count={count} onOpenCart={() => setOpen(true)} />
       <Hero onAdd={add} />
 
