@@ -99,6 +99,25 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    /* woven washi paper texture */
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        oklch(0.283 0.041 149 / 0.028) 0px,
+        oklch(0.283 0.041 149 / 0.028) 1px,
+        transparent 1px,
+        transparent 4px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        oklch(0.283 0.041 149 / 0.022) 0px,
+        oklch(0.283 0.041 149 / 0.022) 1px,
+        transparent 1px,
+        transparent 5px
+      ),
+      radial-gradient(circle at 20% 15%, oklch(0.72 0.09 84 / 0.05), transparent 45%),
+      radial-gradient(circle at 82% 70%, oklch(0.665 0.031 140 / 0.07), transparent 50%);
+    background-attachment: fixed;
   }
 
   h1,
@@ -109,19 +128,25 @@
   }
 }
 
-@media (pointer: fine) {
-  body,
-  a,
-  button {
-    cursor: none;
-  }
-}
-
 @utility glass-panel {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(16px) saturate(140%);
   box-shadow: var(--shadow-float);
+}
+
+/* torn-edge washi paper / stone chip surface */
+@utility washi-badge {
+  background:
+    radial-gradient(circle at 30% 20%, oklch(1 0 0 / 0.7), transparent 60%),
+    var(--washi);
+  border: 1px solid oklch(0.283 0.041 149 / 0.1);
+  box-shadow: var(--shadow-float);
+  clip-path: polygon(
+    2% 12%, 9% 3%, 26% 8%, 44% 1%, 63% 7%, 81% 2%, 95% 9%, 99% 28%,
+    97% 52%, 100% 74%, 92% 93%, 74% 98%, 56% 92%, 37% 99%, 18% 95%,
+    5% 88%, 1% 66%, 4% 40%
+  );
 }
 
 @utility eyebrow {

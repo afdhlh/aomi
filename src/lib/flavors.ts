@@ -9,6 +9,7 @@ export type Flavor = {
   bottom: string;
   accent: string;
   tint: string;
+  particle: "leaf" | "strawberry" | "blueberry" | "raspberry" | "crumb";
   notes: { umami: number; sweetness: number; richness: number; caffeine: number };
 };
 
@@ -23,6 +24,7 @@ export const flavors: Flavor[] = [
     bottom: "oklch(0.94 0.03 130)",
     accent: "oklch(0.55 0.14 148)",
     tint: "oklch(0.96 0.02 140)",
+    particle: "leaf",
     notes: { umami: 95, sweetness: 32, richness: 70, caffeine: 78 },
   },
   {
@@ -35,6 +37,7 @@ export const flavors: Flavor[] = [
     bottom: "oklch(0.82 0.13 18)",
     accent: "oklch(0.66 0.19 20)",
     tint: "oklch(0.96 0.025 25)",
+    particle: "strawberry",
     notes: { umami: 62, sweetness: 82, richness: 74, caffeine: 60 },
   },
   {
@@ -47,6 +50,7 @@ export const flavors: Flavor[] = [
     bottom: "oklch(0.5 0.16 295)",
     accent: "oklch(0.52 0.17 292)",
     tint: "oklch(0.95 0.02 292)",
+    particle: "blueberry",
     notes: { umami: 58, sweetness: 74, richness: 68, caffeine: 58 },
   },
   {
@@ -59,6 +63,7 @@ export const flavors: Flavor[] = [
     bottom: "oklch(0.62 0.21 14)",
     accent: "oklch(0.6 0.22 12)",
     tint: "oklch(0.96 0.02 12)",
+    particle: "raspberry",
     notes: { umami: 55, sweetness: 78, richness: 66, caffeine: 55 },
   },
   {
@@ -71,6 +76,7 @@ export const flavors: Flavor[] = [
     bottom: "oklch(0.66 0.11 70)",
     accent: "oklch(0.72 0.1 78)",
     tint: "oklch(0.96 0.02 80)",
+    particle: "crumb",
     notes: { umami: 68, sweetness: 88, richness: 92, caffeine: 64 },
   },
 ];
