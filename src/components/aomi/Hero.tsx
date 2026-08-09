@@ -189,11 +189,11 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
           </motion.div>
 
           {/* stone pedestal shadow */}
-          <div className="absolute bottom-[78px] left-1/2 h-8 w-72 -translate-x-1/2 rounded-[50%] bg-primary/25 blur-xl md:w-80" />
+          <div className="absolute bottom-[124px] left-1/2 h-8 w-72 -translate-x-1/2 rounded-[50%] bg-primary/25 blur-xl md:w-80" />
 
           {/* glass on matcha mountain */}
           <motion.div
-            className="absolute bottom-[80px] left-1/2 h-[430px] w-[310px] -translate-x-1/2 will-change-transform md:h-[500px] md:w-[360px]"
+            className="absolute bottom-[126px] left-1/2 h-[430px] w-[310px] -translate-x-1/2 will-change-transform md:h-[500px] md:w-[360px]"
             style={{ x: glassX, y: glassY }}
           >
             <img
