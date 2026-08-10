@@ -1,95 +1,100 @@
-import originalAsset from "@/assets/original.png.asset.json";
-import strawberryAsset from "@/assets/starwberry.png.asset.json";
-import blueberryAsset from "@/assets/blueberry.png.asset.json";
-import raspberryAsset from "@/assets/raspberry.png.asset.json";
-import brownSugarAsset from "@/assets/brown_sugar.png.asset.json";
+import originalImg from "@/assets/original.png";
+import strawberryImg from "@/assets/strawberry.png";
+import blueberryImg from "@/assets/blueberry.png";
+import raspberryImg from "@/assets/raspberry.png";
+import brownSugarImg from "@/assets/brown_sugar.png";
 
-export type Flavor = {
+export interface FlavorNotes {
+  umami: number;
+  sweetness: number;
+  richness: number;
+  caffeine: number;
+}
+
+export interface Flavor {
   id: string;
   name: string;
   region: string;
-  desc: string;
   price: number;
-  /** ceramic bowl (chawan) product image shown on the matcha mound */
+  desc: string;
   image: string;
-  /** swatch layers, top -> bottom */
   top: string;
   bottom: string;
-  accent: string;
   tint: string;
-  particle: "leaf" | "strawberry" | "blueberry" | "raspberry" | "crumb";
-  notes: { umami: number; sweetness: number; richness: number; caffeine: number };
-};
+  accent: string;
+  particle: "leaf" | "strawberry" | "blueberry" | "raspberry" | "sugar";
+  notes: FlavorNotes;
+}
 
 export const flavors: Flavor[] = [
   {
-    id: "shizuoka",
+    id: "shizuoka-original",
     name: "Shizuoka Original",
-    region: "Shizuoka",
-    desc: "Classic pure ceremonial matcha — grassy, oceanic, endlessly smooth, finished with gold flakes.",
-    price: 38,
-    image: originalAsset.url,
-    top: "oklch(0.62 0.16 145)",
-    bottom: "oklch(0.94 0.03 130)",
-    accent: "oklch(0.55 0.14 148)",
-    tint: "oklch(0.96 0.02 140)",
+    region: "Shizuoka, Japan",
+    price: 32,
+    desc: "A pure, balanced ceremonial grade matcha with deep umami notes and a smooth, creamy finish.",
+    image: originalImg,
+    top: "#2D5A27",
+    bottom: "#1E3F1B",
+    tint: "#EAF3E8",
+    accent: "#386633",
     particle: "leaf",
-    notes: { umami: 95, sweetness: 32, richness: 70, caffeine: 78 },
+    notes: { umami: 88, sweetness: 45, richness: 78, caffeine: 70 },
   },
   {
     id: "uji-strawberry",
     name: "Uji Strawberry",
     region: "Uji, Kyoto",
-    desc: "Emerald matcha swirled with whipped strawberry cream and fresh sliced berries.",
-    price: 42,
-    image: strawberryAsset.url,
-    top: "oklch(0.66 0.17 148)",
-    bottom: "oklch(0.82 0.13 18)",
-    accent: "oklch(0.66 0.19 20)",
-    tint: "oklch(0.96 0.025 25)",
+    price: 36,
+    desc: "Ceremonial matcha layered with ripe Uji strawberries for a delicate fruit-forward sweetness.",
+    image: strawberryImg,
+    top: "#E26D7D",
+    bottom: "#355E3B",
+    tint: "#FCEEEF",
+    accent: "#D64550",
     particle: "strawberry",
-    notes: { umami: 62, sweetness: 82, richness: 74, caffeine: 60 },
+    notes: { umami: 70, sweetness: 85, richness: 65, caffeine: 60 },
   },
   {
     id: "kyoto-blueberry",
     name: "Kyoto Blueberry",
-    region: "Kyoto",
-    desc: "A deep violet blueberry swirl folded through ceremonial matcha foam.",
-    price: 42,
-    image: blueberryAsset.url,
-    top: "oklch(0.6 0.15 150)",
-    bottom: "oklch(0.5 0.16 295)",
-    accent: "oklch(0.52 0.17 292)",
-    tint: "oklch(0.95 0.02 292)",
+    region: "Kyoto, Japan",
+    price: 36,
+    desc: "Rich matcha combined with wild Kyoto blueberries for a tart, antioxidant-rich flavor profile.",
+    image: blueberryImg,
+    top: "#5B5B8C",
+    bottom: "#2B4C38",
+    tint: "#F0F0F8",
+    accent: "#4A4E69",
     particle: "blueberry",
-    notes: { umami: 58, sweetness: 74, richness: 68, caffeine: 58 },
+    notes: { umami: 65, sweetness: 78, richness: 72, caffeine: 65 },
   },
   {
-    id: "raspberry",
+    id: "raspberry-matcha",
     name: "Raspberry Matcha",
-    region: "Hokkaido",
-    desc: "Ruby raspberry ribbons cut with cold Hokkaido milk and whole berries.",
-    price: 44,
-    image: raspberryAsset.url,
-    top: "oklch(0.64 0.16 147)",
-    bottom: "oklch(0.62 0.21 14)",
-    accent: "oklch(0.6 0.22 12)",
-    tint: "oklch(0.96 0.02 12)",
+    region: "Nara, Japan",
+    price: 36,
+    desc: "Vibrant and tangy raspberries paired with stone-ground matcha for an invigorating blend.",
+    image: raspberryImg,
+    top: "#C7385A",
+    bottom: "#2B4C38",
+    tint: "#FAECEF",
+    accent: "#B82547",
     particle: "raspberry",
-    notes: { umami: 55, sweetness: 78, richness: 66, caffeine: 55 },
+    notes: { umami: 60, sweetness: 82, richness: 60, caffeine: 65 },
   },
   {
-    id: "brown-sugar",
-    name: "Brown Sugar Matcha",
-    region: "Fukuoka",
-    desc: "Slow-toasted brown sugar syrup drizzled over a golden crumble crown.",
-    price: 46,
-    image: brownSugarAsset.url,
-    top: "oklch(0.58 0.13 142)",
-    bottom: "oklch(0.66 0.11 70)",
-    accent: "oklch(0.72 0.1 78)",
-    tint: "oklch(0.96 0.02 80)",
-    particle: "crumb",
-    notes: { umami: 68, sweetness: 88, richness: 92, caffeine: 64 },
+    id: "okinawa-brown-sugar",
+    name: "Okinawa Brown Sugar",
+    region: "Okinawa, Japan",
+    price: 38,
+    desc: "Decadent Kokuto brown sugar from Okinawa melted into robust ceremonial matcha.",
+    image: brownSugarImg,
+    top: "#8C6239",
+    bottom: "#2B4C38",
+    tint: "#F7F2EC",
+    accent: "#7A4E2A",
+    particle: "sugar",
+    notes: { umami: 80, sweetness: 92, richness: 90, caffeine: 55 },
   },
 ];
