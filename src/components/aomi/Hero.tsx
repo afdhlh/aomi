@@ -226,8 +226,8 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             </span>
           </motion.div>
 
-          {/* GROUNDED STAGE — Batu + Mangkuk Besar Berdiri Pas */}
-          <div className="absolute left-1/2 top-[12%] z-10 w-[500px] -translate-x-1/2 md:w-[600px]">
+          {/* GROUNDED STAGE — Batu + Mangkuk Pas di Tengah Agak Depan */}
+          <div className="absolute left-1/2 top-[8%] z-10 w-[520px] -translate-x-1/2 md:w-[640px]">
             {/* BASE LAYER — Gambar Batu Utama */}
             <SafeImage
               src={baseImg}
@@ -240,11 +240,11 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             {/* BAYANGAN KONTAK DI BAWAH MANGKUK */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[32%] z-[15] h-7 w-[210px] -translate-x-1/2 rounded-[50%] bg-black/60 blur-md md:w-[250px]"
+              className="pointer-events-none absolute left-[47%] top-[48%] z-[15] h-8 w-[250px] -translate-x-1/2 rounded-[50%] bg-black/60 blur-md md:w-[300px]"
             />
 
-            {/* DYNAMIC TOP LAYER — Mangkuk Matcha Besar & Duduk Pas di Atas Batu */}
-            <div className="absolute left-1/2 top-[-18%] z-20 w-[420px] -translate-x-1/2 md:w-[490px]">
+            {/* DYNAMIC TOP LAYER — Mangkuk Matcha Besar Duduk Pas di Permukaan Batu Tengah-Depan */}
+            <div className="absolute left-[47%] top-[10%] z-20 w-[450px] -translate-x-1/2 md:w-[540px]">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={flavor.id}
@@ -258,7 +258,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
                     alt={`${flavor.name} served in a traditional Japanese ceramic chawan`}
                     width={1024}
                     height={538}
-                    className="w-full object-contain drop-shadow-md"
+                    className="w-full object-contain drop-shadow-sm"
                   />
                 </motion.div>
               </AnimatePresence>
