@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { flavors, type Flavor } from "@/lib/flavors";
+import backgroundAsset from "@/assets/background.jpeg.asset.json";
+
 
 import { Header } from "@/components/aomi/Header";
 import { Hero } from "@/components/aomi/Hero";
@@ -130,6 +132,8 @@ function Index() {
       </footer>
 
       <CartDrawer open={open} onClose={() => setOpen(false)} lines={cart} onQty={onQty} />
+      </div>
     </main>
+
   );
 }
