@@ -4,6 +4,8 @@ import { MapPin, Sparkles } from "lucide-react";
 import baseImg from "@/assets/matcha-mound-base.png";
 import { flavors, type Flavor } from "@/lib/flavors";
 import { Chasen, Chashaku, TeaLeaf, particleMap } from "@/components/aomi/props";
+import { SafeImage } from "@/components/aomi/SafeImage";
+
 
 type FloatSpec = { x: number; y: number; d: number; s: number; kind: "fruit" | "leaf" };
 
