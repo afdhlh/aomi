@@ -106,13 +106,13 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0"
-        animate={{ backgroundColor: flavor.tint }}
+        animate={{ backgroundColor: flavor.tint, opacity: 0.45 }}
         transition={{ duration: 1.1, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/3 h-[60vw] w-[60vw] -translate-x-1/2 -translate-y-1/3 rounded-full blur-[120px]"
-        animate={{ backgroundColor: flavor.accent, opacity: 0.12 }}
+        animate={{ backgroundColor: flavor.accent, opacity: 0.08 }}
         transition={{ duration: 1.1 }}
       />
 
@@ -205,7 +205,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
 
           {/* TOP LAYER — dynamic ceramic chawan resting on the mound */}
           <motion.div
-            className="absolute bottom-[290px] left-1/2 z-20 w-[290px] -translate-x-1/2 will-change-transform md:bottom-[330px] md:w-[340px]"
+            className="absolute bottom-[252px] left-1/2 z-20 w-[500px] -translate-x-1/2 will-change-transform md:bottom-[286px] md:w-[620px]"
             style={{ x: bowlX, y: bowlY }}
           >
             <AnimatePresence mode="wait">
