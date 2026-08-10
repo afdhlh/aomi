@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { flavors, type Flavor } from "@/lib/flavors";
+import backgroundAsset from "@/assets/background.jpeg.asset.json";
+
 
 import { Header } from "@/components/aomi/Header";
 import { Hero } from "@/components/aomi/Hero";
@@ -56,8 +58,15 @@ function Index() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-background">
-      
+      {/* washi paper + Kyoto line-art map backdrop */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center opacity-70 mix-blend-multiply"
+        style={{ backgroundImage: `url(${backgroundAsset.url})` }}
+      />
+      <div className="relative z-10">
       <Header count={count} onOpenCart={() => setOpen(true)} />
+
       <Hero onAdd={add} />
 
       <section id="grade" className="relative mx-auto max-w-7xl px-5 py-24 md:px-10">
@@ -123,6 +132,8 @@ function Index() {
       </footer>
 
       <CartDrawer open={open} onClose={() => setOpen(false)} lines={cart} onQty={onQty} />
+      </div>
     </main>
+
   );
 }
