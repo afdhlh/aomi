@@ -205,7 +205,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
 
           {/* TOP LAYER — dynamic ceramic chawan resting on the mound */}
           <motion.div
-            className="absolute bottom-[252px] left-1/2 z-20 w-[500px] -translate-x-1/2 will-change-transform md:bottom-[286px] md:w-[620px]"
+            className="absolute bottom-[236px] left-1/2 z-20 w-[560px] -translate-x-1/2 will-change-transform md:bottom-[268px] md:w-[700px]"
             style={{ x: bowlX, y: bowlY }}
           >
             <AnimatePresence mode="wait">
@@ -243,9 +243,9 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
                   key={f.id}
                   onClick={() => setIndex(i)}
                   aria-label={`Select ${f.name}`}
-                  className="washi-badge absolute left-1/2 top-6 w-[150px] origin-bottom rounded-2xl p-3 text-left will-change-transform md:w-[168px]"
+                  className="washi-badge absolute left-1/2 top-6 -ml-[75px] w-[150px] origin-bottom rounded-2xl p-3 text-left will-change-transform md:w-[168px]"
                   animate={{
-                    x: offset * 132 - 84,
+                    x: offset * 132,
                     y: Math.abs(offset) * 26 + (active ? -26 : 0),
                     rotate: offset * 9,
                     scale: active ? 1.08 : 0.9,
