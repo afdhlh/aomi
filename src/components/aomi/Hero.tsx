@@ -208,15 +208,16 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             {/* REALISTIC CONTACT SHADOW */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[54%] z-[15] h-9 w-[220px] -translate-x-1/2 -translate-y-1/2 scale-x-125 rounded-[50%] bg-black/50 blur-md"
+              className="pointer-events-none absolute left-1/2 top-[44%] z-[15] h-8 w-[190px] -translate-x-1/2 -translate-y-1/2 scale-x-125 rounded-[50%] bg-black/50 blur-md md:w-[215px]"
             />
 
             {/* DYNAMIC TOP LAYER — ceramic chawan nestled into the powder */}
             <motion.div
-              className="absolute left-1/2 top-[54%] z-20 w-[240px] -translate-x-1/2 -translate-y-1/2 will-change-transform md:w-[270px]"
+              className="absolute left-1/2 top-[-38%] z-20 w-[640px] -translate-x-1/2 will-change-transform md:w-[730px]"
               style={{ x: bowlX, y: bowlY }}
             >
-              <div style={{ transform: "translateY(22%)" }}>
+              <div>
+
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={flavor.id}
