@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { MapPin, Sparkles } from "lucide-react";
 
-// 1. Import Aset Gambar Lokal milikmu dari folder assets
+// 1. Import Aset Gambar Lokal
 import baseImg from "@/assets/aset_stone.png";
 import originalImg from "@/assets/original.png";
 import strawberryImg from "@/assets/strawberry.png";
@@ -14,14 +14,34 @@ import { flavors, type Flavor } from "@/lib/flavors";
 import { Chasen, Chashaku, TeaLeaf, particleMap } from "@/components/aomi/props";
 import { SafeImage } from "@/components/aomi/SafeImage";
 
-// 2. Kamus Jodoh Gambar berdasarkan ID rasa
+// 2. Pemetaan Lengkap ID Rasa ke File Gambar (Mencakup Semua Varian ID)
 const flavorImages: Record<string, string> = {
+  // Original / Shizuoka
   original: originalImg,
+  "shizuoka-original": originalImg,
+  shizuoka_original: originalImg,
+  shizuoka: originalImg,
+
+  // Strawberry / Uji
   strawberry: strawberryImg,
+  "uji-strawberry": strawberryImg,
+  uji_strawberry: strawberryImg,
+
+  // Blueberry / Kyoto
   blueberry: blueberryImg,
+  "kyoto-blueberry": blueberryImg,
+  kyoto_blueberry: blueberryImg,
+
+  // Raspberry
   raspberry: raspberryImg,
+  "raspberry-matcha": raspberryImg,
+  raspberry_matcha: raspberryImg,
+
+  // Brown Sugar / Okinawa
   "brown-sugar": brownSugarImg,
   brown_sugar: brownSugarImg,
+  "okinawa-brown-sugar": brownSugarImg,
+  okinawa_brown_sugar: brownSugarImg,
 };
 
 type FloatSpec = { x: number; y: number; d: number; s: number; kind: "fruit" | "leaf" };
@@ -48,7 +68,9 @@ function Floater({
 }) {
   const tx = useTransform(px, (v: number) => v * spec.d);
   const ty = useTransform(py, (v: number) => v * spec.d);
-  const Particle = particleMap[flavor.particle];
+  
+  // PENGAMAN: Jika particle tidak ditemukan di particleMap, otomatis fallback ke TeaLeaf agar tidak crash
+  const Particle = particleMap[flavor.particle] || TeaLeaf;
 
   return (
     <motion.div
@@ -118,6 +140,9 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
 
   const step = (dir: number) =>
     setIndex((i) => Math.min(flavors.length - 1, Math.max(0, i + dir)));
+
+  // Mengambil gambar sesuai ID rasa, atau fallback ke flavor.image
+  const currentImage = flavorImages[flavor.id] || flavor.image;
 
   return (
     <section id="top" className="relative overflow-hidden pt-28">
@@ -213,7 +238,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
 
           {/* GROUNDED STAGE — base plate + contact shadow + dynamic bowl */}
           <div className="absolute left-1/2 top-[16%] z-10 w-[420px] -translate-x-1/2 md:w-[480px]">
-            {/* BASE LAYER — Gambar Batu Utama Milikmu */}
+            {/* BASE LAYER — Gambar Batu Utama */}
             <SafeImage
               src={baseImg}
               alt="Dark slate stone plate"
@@ -234,7 +259,6 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
               style={{ x: bowlX, y: bowlY }}
             >
               <div>
-
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={flavor.id}
@@ -244,7 +268,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <SafeImage
-                      src={flavorImages[flavor.id] || flavor.image}
+                      src={currentImage}
                       alt={`${flavor.name} served in a traditional Japanese ceramic chawan`}
                       width={1024}
                       height={538}
