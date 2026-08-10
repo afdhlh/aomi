@@ -226,8 +226,8 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             </span>
           </motion.div>
 
-          {/* GROUNDED STAGE — Proporsi Pas & Mangkuk Diam */}
-          <div className="absolute left-1/2 top-[15%] z-10 w-[460px] -translate-x-1/2 md:w-[520px]">
+          {/* GROUNDED STAGE — Batu + Mangkuk Besar Berdiri Pas */}
+          <div className="absolute left-1/2 top-[12%] z-10 w-[500px] -translate-x-1/2 md:w-[600px]">
             {/* BASE LAYER — Gambar Batu Utama */}
             <SafeImage
               src={baseImg}
@@ -237,20 +237,20 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
               className="relative z-10 w-full object-contain"
             />
 
-            {/* REALISTIC CONTACT SHADOW */}
+            {/* BAYANGAN KONTAK DI BAWAH MANGKUK */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[46%] z-[15] h-7 w-[160px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-black/60 blur-md md:w-[190px]"
+              className="pointer-events-none absolute left-1/2 top-[32%] z-[15] h-7 w-[210px] -translate-x-1/2 rounded-[50%] bg-black/60 blur-md md:w-[250px]"
             />
 
-            {/* DYNAMIC TOP LAYER — Mangkuk Matcha Proporsional & Tanpa Efek Mengambang */}
-            <div className="absolute left-1/2 top-[-10%] z-20 w-[310px] -translate-x-1/2 md:w-[350px]">
+            {/* DYNAMIC TOP LAYER — Mangkuk Matcha Besar & Duduk Pas di Atas Batu */}
+            <div className="absolute left-1/2 top-[-18%] z-20 w-[420px] -translate-x-1/2 md:w-[490px]">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={flavor.id}
-                  initial={{ opacity: 0, scale: 0.94 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.04 }}
+                  exit={{ opacity: 0, scale: 1.03 }}
                   transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
                 >
                   <SafeImage
