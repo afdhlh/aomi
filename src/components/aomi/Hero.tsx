@@ -246,14 +246,14 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
               className="relative z-10 w-full object-contain"
             />
 
-            {/* BAYANGAN KONTAK DI BAWAH MANGKUK (Geser Kanan Sedikit ke 51.5%) */}
+            {/* BAYANGAN KONTAK DI BAWAH MANGKUK (Disesuaikan Naik ke top-[37%]) */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-[51.5%] top-[39%] z-[15] h-10 w-[370px] -translate-x-1/2 rounded-[50%] bg-black/65 blur-md md:w-[470px]"
+              className="pointer-events-none absolute left-[51.5%] top-[37%] z-[15] h-10 w-[370px] -translate-x-1/2 rounded-[50%] bg-black/65 blur-md md:w-[470px]"
             />
 
-            {/* DYNAMIC TOP LAYER — Mangkuk Digeser Kanan Sedikit ke 51.5% */}
-            <div className="absolute left-[51.5%] top-[-12%] z-20 w-[580px] -translate-x-1/2 md:w-[760px]">
+            {/* DYNAMIC TOP LAYER — Mangkuk Dimundurkan Sedikit ke top-[-14%] */}
+            <div className="absolute left-[51.5%] top-[-14%] z-20 w-[580px] -translate-x-1/2 md:w-[760px]">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={flavor.id}
