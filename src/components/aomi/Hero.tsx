@@ -14,30 +14,25 @@ import { flavors, type Flavor } from "@/lib/flavors";
 import { Chasen, Chashaku, TeaLeaf, particleMap } from "@/components/aomi/props";
 import { SafeImage } from "@/components/aomi/SafeImage";
 
-// 2. Pemetaan Lengkap ID Rasa ke File Gambar (Mencakup Semua Varian ID)
+// 2. Pemetaan Lengkap ID Rasa
 const flavorImages: Record<string, string> = {
-  // Original / Shizuoka
   original: originalImg,
   "shizuoka-original": originalImg,
   shizuoka_original: originalImg,
   shizuoka: originalImg,
 
-  // Strawberry / Uji
   strawberry: strawberryImg,
   "uji-strawberry": strawberryImg,
   uji_strawberry: strawberryImg,
 
-  // Blueberry / Kyoto
   blueberry: blueberryImg,
   "kyoto-blueberry": blueberryImg,
   kyoto_blueberry: blueberryImg,
 
-  // Raspberry
   raspberry: raspberryImg,
   "raspberry-matcha": raspberryImg,
   raspberry_matcha: raspberryImg,
 
-  // Brown Sugar / Okinawa
   "brown-sugar": brownSugarImg,
   brown_sugar: brownSugarImg,
   "okinawa-brown-sugar": brownSugarImg,
@@ -69,7 +64,6 @@ function Floater({
   const tx = useTransform(px, (v: number) => v * spec.d);
   const ty = useTransform(py, (v: number) => v * spec.d);
   
-  // PENGAMAN: Jika particle tidak ditemukan di particleMap, otomatis fallback ke TeaLeaf agar tidak crash
   const Particle = particleMap[flavor.particle] || TeaLeaf;
 
   return (
@@ -135,13 +129,9 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
     return () => window.removeEventListener("pointermove", onMove);
   }, [mx, my]);
 
-  const bowlX = useTransform(px, (v: number) => v * -10);
-  const bowlY = useTransform(py, (v: number) => v * -8);
-
   const step = (dir: number) =>
     setIndex((i) => Math.min(flavors.length - 1, Math.max(0, i + dir)));
 
-  // Mengambil gambar sesuai ID rasa, atau fallback ke flavor.image
   const currentImage = flavorImages[flavor.id] || flavor.image;
 
   return (
@@ -151,13 +141,13 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
         aria-hidden
         className="pointer-events-none absolute inset-0"
         animate={{ backgroundColor: flavor.tint, opacity: 0.45 }}
-        transition={{ duration: 1.1, ease: "easeInOut" }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/3 h-[60vw] w-[60vw] -translate-x-1/2 -translate-y-1/3 rounded-full blur-[120px]"
         animate={{ backgroundColor: flavor.accent, opacity: 0.08 }}
-        transition={{ duration: 1.1 }}
+        transition={{ duration: 0.8 }}
       />
 
       {/* kanji watermark */}
@@ -236,8 +226,8 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             </span>
           </motion.div>
 
-          {/* GROUNDED STAGE — base plate + contact shadow + dynamic bowl */}
-          <div className="absolute left-1/2 top-[16%] z-10 w-[420px] -translate-x-1/2 md:w-[480px]">
+          {/* GROUNDED STAGE — Proporsi Pas & Mangkuk Diam */}
+          <div className="absolute left-1/2 top-[15%] z-10 w-[460px] -translate-x-1/2 md:w-[520px]">
             {/* BASE LAYER — Gambar Batu Utama */}
             <SafeImage
               src={baseImg}
@@ -250,34 +240,29 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             {/* REALISTIC CONTACT SHADOW */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[44%] z-[15] h-8 w-[190px] -translate-x-1/2 -translate-y-1/2 scale-x-125 rounded-[50%] bg-black/50 blur-md md:w-[215px]"
+              className="pointer-events-none absolute left-1/2 top-[46%] z-[15] h-7 w-[160px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-black/60 blur-md md:w-[190px]"
             />
 
-            {/* DYNAMIC TOP LAYER — Mangkuk Matcha Berdasarkan Rasa */}
-            <motion.div
-              className="absolute left-1/2 top-[-30%] z-20 w-[560px] -translate-x-1/2 will-change-transform md:w-[620px]"
-              style={{ x: bowlX, y: bowlY }}
-            >
-              <div>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={flavor.id}
-                    initial={{ opacity: 0, y: -14, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.97 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <SafeImage
-                      src={currentImage}
-                      alt={`${flavor.name} served in a traditional Japanese ceramic chawan`}
-                      width={1024}
-                      height={538}
-                      className="w-full object-contain"
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </motion.div>
+            {/* DYNAMIC TOP LAYER — Mangkuk Matcha Proporsional & Tanpa Efek Mengambang */}
+            <div className="absolute left-1/2 top-[-10%] z-20 w-[310px] -translate-x-1/2 md:w-[350px]">
+              <AnimatePresence mode="popLayout">
+                <motion.div
+                  key={flavor.id}
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.04 }}
+                  transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                >
+                  <SafeImage
+                    src={currentImage}
+                    alt={`${flavor.name} served in a traditional Japanese ceramic chawan`}
+                    width={1024}
+                    height={538}
+                    className="w-full object-contain drop-shadow-md"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* arc carousel */}
@@ -333,13 +318,13 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
 
         {/* details + tasting notes */}
         <div id="flavors" className="mt-14 grid gap-10 pb-24 md:grid-cols-[1.1fr_1fr] md:items-end">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="popLayout">
             <motion.div
               key={flavor.id}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.45 }}
+              transition={{ duration: 0.3 }}
             >
               <p className="eyebrow">{flavor.region}</p>
               <h2 className="mt-3 font-serif text-4xl text-primary md:text-5xl">{flavor.name}</h2>
