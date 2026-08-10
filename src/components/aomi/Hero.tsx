@@ -192,37 +192,50 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             </span>
           </motion.div>
 
-          {/* BASE LAYER — static slate plate + matcha mound */}
-          <div className="absolute bottom-[168px] left-1/2 z-10 w-[420px] -translate-x-1/2 md:w-[520px]">
-            <img
+          {/* GROUNDED STAGE — base plate + contact shadow + dynamic bowl */}
+          <div className="absolute left-1/2 top-[16%] z-10 w-[420px] -translate-x-1/2 md:w-[480px]">
+            {/* BASE LAYER — static slate plate + matcha mound */}
+            <SafeImage
               src={baseImg}
               alt="Dark slate stone plate holding a mound of ceremonial matcha powder"
               width={1024}
               height={768}
-              className="w-full mix-blend-multiply"
+              className="relative z-10 w-full mix-blend-multiply"
             />
+
+            {/* REALISTIC CONTACT SHADOW */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-[54%] z-[15] h-9 w-[220px] -translate-x-1/2 -translate-y-1/2 scale-x-125 rounded-[50%] bg-black/50 blur-md"
+            />
+
+            {/* DYNAMIC TOP LAYER — ceramic chawan nestled into the powder */}
+            <motion.div
+              className="absolute left-1/2 top-[54%] z-20 w-[240px] -translate-x-1/2 -translate-y-1/2 will-change-transform md:w-[270px]"
+              style={{ x: bowlX, y: bowlY }}
+            >
+              <div style={{ transform: "translateY(22%)" }}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={flavor.id}
+                    initial={{ opacity: 0, y: -14, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.97 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <SafeImage
+                      src={flavor.image}
+                      alt={`${flavor.name} served in a traditional Japanese ceramic chawan`}
+                      width={1024}
+                      height={538}
+                      className="w-full mix-blend-multiply"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
           </div>
 
-          {/* TOP LAYER — dynamic ceramic chawan resting on the mound */}
-          <motion.div
-            className="absolute bottom-[236px] left-1/2 z-20 w-[560px] -translate-x-1/2 will-change-transform md:bottom-[268px] md:w-[700px]"
-            style={{ x: bowlX, y: bowlY }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={flavor.id}
-                src={flavor.image}
-                alt={`${flavor.name} served in a traditional Japanese ceramic chawan`}
-                width={1024}
-                height={538}
-                initial={{ opacity: 0, y: -18, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 14, scale: 0.96 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full mix-blend-multiply"
-              />
-            </AnimatePresence>
-          </motion.div>
 
           {/* arc carousel */}
           <motion.div
