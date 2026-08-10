@@ -1,11 +1,28 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { MapPin, Sparkles } from "lucide-react";
-import baseImg from "@/assets/matcha-mound-base.png";
+
+// 1. Import Aset Gambar Lokal milikmu dari folder assets
+import baseImg from "@/assets/aset_stone.png";
+import originalImg from "@/assets/original.png";
+import strawberryImg from "@/assets/strawberry.png";
+import blueberryImg from "@/assets/blueberry.png";
+import raspberryImg from "@/assets/raspberry.png";
+import brownSugarImg from "@/assets/brown_sugar.png";
+
 import { flavors, type Flavor } from "@/lib/flavors";
 import { Chasen, Chashaku, TeaLeaf, particleMap } from "@/components/aomi/props";
 import { SafeImage } from "@/components/aomi/SafeImage";
 
+// 2. Kamus Jodoh Gambar berdasarkan ID rasa
+const flavorImages: Record<string, string> = {
+  original: originalImg,
+  strawberry: strawberryImg,
+  blueberry: blueberryImg,
+  raspberry: raspberryImg,
+  "brown-sugar": brownSugarImg,
+  brown_sugar: brownSugarImg,
+};
 
 type FloatSpec = { x: number; y: number; d: number; s: number; kind: "fruit" | "leaf" };
 
@@ -196,13 +213,13 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
 
           {/* GROUNDED STAGE — base plate + contact shadow + dynamic bowl */}
           <div className="absolute left-1/2 top-[16%] z-10 w-[420px] -translate-x-1/2 md:w-[480px]">
-            {/* BASE LAYER — static slate plate + matcha mound */}
+            {/* BASE LAYER — Gambar Batu Utama Milikmu */}
             <SafeImage
               src={baseImg}
-              alt="Dark slate stone plate holding a mound of ceremonial matcha powder"
+              alt="Dark slate stone plate"
               width={1024}
               height={768}
-              className="relative z-10 w-full mix-blend-multiply"
+              className="relative z-10 w-full object-contain"
             />
 
             {/* REALISTIC CONTACT SHADOW */}
@@ -211,7 +228,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
               className="pointer-events-none absolute left-1/2 top-[44%] z-[15] h-8 w-[190px] -translate-x-1/2 -translate-y-1/2 scale-x-125 rounded-[50%] bg-black/50 blur-md md:w-[215px]"
             />
 
-            {/* DYNAMIC TOP LAYER — ceramic chawan nestled into the powder */}
+            {/* DYNAMIC TOP LAYER — Mangkuk Matcha Berdasarkan Rasa */}
             <motion.div
               className="absolute left-1/2 top-[-30%] z-20 w-[560px] -translate-x-1/2 will-change-transform md:w-[620px]"
               style={{ x: bowlX, y: bowlY }}
@@ -227,18 +244,17 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <SafeImage
-                      src={flavor.image}
+                      src={flavorImages[flavor.id] || flavor.image}
                       alt={`${flavor.name} served in a traditional Japanese ceramic chawan`}
                       width={1024}
                       height={538}
-                      className="w-full mix-blend-multiply"
+                      className="w-full object-contain"
                     />
                   </motion.div>
                 </AnimatePresence>
               </div>
             </motion.div>
           </div>
-
 
           {/* arc carousel */}
           <motion.div
