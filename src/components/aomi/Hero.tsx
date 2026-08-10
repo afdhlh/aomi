@@ -180,34 +180,38 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
           </motion.h1>
         </div>
 
-        {/* centerpiece container - diperluas agar panggung leluasa */}
-        <div className="relative mx-auto mt-10 h-[560px] w-full max-w-4xl md:h-[640px]">
+        {/* centerpiece container */}
+        <div className="relative mx-auto mt-10 h-[560px] w-full max-w-4xl md:h-[660px]">
           {floaters.map((f, i) => (
             <Floater key={i} spec={f} px={px} py={py} flavor={flavor} />
           ))}
 
           {/* line-art chasen + chashaku */}
           <motion.div
-            className="pointer-events-none absolute left-0 top-[16%] hidden md:block"
+            className="pointer-events-none absolute left-[-2%] top-[16%] hidden md:block"
             animate={{ y: [0, -12, 0], rotate: [-4, 2, -4] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           >
             <Chasen className="h-40 w-28 opacity-70" />
           </motion.div>
           <motion.div
-            className="pointer-events-none absolute right-0 bottom-[42%] hidden md:block"
+            className="pointer-events-none absolute right-[-2%] bottom-[42%] hidden md:block"
             animate={{ y: [0, 10, 0], rotate: [4, -2, 4] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           >
             <Chashaku className="h-10 w-28 opacity-70" />
           </motion.div>
 
-          {/* WASHI TAPE BADGES — Ditarik lebih keluar agar longgar */}
+          {/* WASHI TAPE BADGES — Melayang Bebas di Kiri & Kanan */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6 }}
-            className="washi-badge absolute -left-4 top-4 z-40 hidden px-5 py-3 md:-left-10 md:flex md:items-center md:gap-2"
+            animate={{ opacity: 1, x: 0, y: [0, -8, 0] }}
+            transition={{
+              opacity: { delay: 0.6 },
+              x: { delay: 0.6 },
+              y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="washi-badge absolute left-0 top-6 z-40 hidden px-5 py-3 md:left-2 md:flex md:items-center md:gap-2"
           >
             <Sparkles className="h-3.5 w-3.5 text-gold" />
             <span className="text-[0.62rem] uppercase tracking-[0.2em] text-primary">
@@ -217,9 +221,13 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.75 }}
-            className="washi-badge absolute -right-4 top-12 z-40 hidden px-5 py-3 md:-right-10 md:flex md:items-center md:gap-2"
+            animate={{ opacity: 1, x: 0, y: [0, 8, 0] }}
+            transition={{
+              opacity: { delay: 0.75 },
+              x: { delay: 0.75 },
+              y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="washi-badge absolute right-0 top-24 z-40 hidden px-5 py-3 md:right-2 md:flex md:items-center md:gap-2"
           >
             <MapPin className="h-3.5 w-3.5 text-gold" />
             <span className="text-[0.62rem] uppercase tracking-[0.2em] text-primary">
@@ -227,8 +235,8 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             </span>
           </motion.div>
 
-          {/* GROUNDED STAGE — Batu & Mangkuk Presisi Tengah */}
-          <div className="absolute left-1/2 top-[6%] z-10 w-[540px] -translate-x-1/2 md:w-[680px]">
+          {/* GROUNDED STAGE — Batu & Mangkuk Presisi Tengah & SUPER BESAR */}
+          <div className="absolute left-1/2 top-[4%] z-10 w-[540px] -translate-x-1/2 md:w-[680px]">
             {/* BASE LAYER — Gambar Batu Utama */}
             <SafeImage
               src={baseImg}
@@ -241,11 +249,11 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             {/* BAYANGAN KONTAK DI BAWAH MANGKUK */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[42%] z-[15] h-9 w-[320px] -translate-x-1/2 rounded-[50%] bg-black/60 blur-md md:w-[380px]"
+              className="pointer-events-none absolute left-1/2 top-[45%] z-[15] h-10 w-[380px] -translate-x-1/2 rounded-[50%] bg-black/65 blur-md md:w-[480px]"
             />
 
-            {/* DYNAMIC TOP LAYER — Mangkuk Matcha SUPER BESAR & DEAD-CENTER */}
-            <div className="absolute left-1/2 top-[-2%] z-20 w-[500px] -translate-x-1/2 md:w-[620px]">
+            {/* DYNAMIC TOP LAYER — Mangkuk Matcha SUPER EXTRA BESAR & DEAD-CENTER */}
+            <div className="absolute left-1/2 top-[-8%] z-20 w-[580px] -translate-x-1/2 md:w-[760px]">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={flavor.id}
@@ -259,7 +267,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
                     alt={`${flavor.name} served in a traditional Japanese ceramic chawan`}
                     width={1024}
                     height={538}
-                    className="w-full object-contain drop-shadow-sm"
+                    className="w-full object-contain drop-shadow-md"
                   />
                 </motion.div>
               </AnimatePresence>
