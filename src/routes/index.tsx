@@ -56,8 +56,15 @@ function Index() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-background">
-      
+      {/* washi paper + Kyoto line-art map backdrop */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center opacity-70 mix-blend-multiply"
+        style={{ backgroundImage: `url(${backgroundAsset.url})` }}
+      />
+      <div className="relative z-10">
       <Header count={count} onOpenCart={() => setOpen(true)} />
+
       <Hero onAdd={add} />
 
       <section id="grade" className="relative mx-auto max-w-7xl px-5 py-24 md:px-10">
