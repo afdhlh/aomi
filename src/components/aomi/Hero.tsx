@@ -213,7 +213,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
 
             {/* DYNAMIC TOP LAYER — ceramic chawan nestled into the powder */}
             <motion.div
-              className="absolute left-1/2 top-[-38%] z-20 w-[640px] -translate-x-1/2 will-change-transform md:w-[730px]"
+              className="absolute left-1/2 top-[-30%] z-20 w-[560px] -translate-x-1/2 will-change-transform md:w-[620px]"
               style={{ x: bowlX, y: bowlY }}
             >
               <div>
