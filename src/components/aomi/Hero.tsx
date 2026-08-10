@@ -235,7 +235,7 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
             </span>
           </motion.div>
 
-          {/* GROUNDED STAGE — Batu & Mangkuk Presisi Tengah & SUPER BESAR */}
+          {/* GROUNDED STAGE — Batu & Mangkuk Presisi Tengah */}
           <div className="absolute left-1/2 top-[4%] z-10 w-[540px] -translate-x-1/2 md:w-[680px]">
             {/* BASE LAYER — Gambar Batu Utama */}
             <SafeImage
@@ -246,14 +246,14 @@ export function Hero({ onAdd }: { onAdd: (f: Flavor) => void }) {
               className="relative z-10 w-full object-contain"
             />
 
-            {/* BAYANGAN KONTAK DI BAWAH MANGKUK */}
+            {/* BAYANGAN KONTAK DI BAWAH MANGKUK (Posisi Ditutup Pas di Permukaan Batu) */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[45%] z-[15] h-10 w-[380px] -translate-x-1/2 rounded-[50%] bg-black/65 blur-md md:w-[480px]"
+              className="pointer-events-none absolute left-1/2 top-[30%] z-[15] h-10 w-[360px] -translate-x-1/2 rounded-[50%] bg-black/65 blur-md md:w-[460px]"
             />
 
-            {/* DYNAMIC TOP LAYER — Mangkuk Matcha SUPER EXTRA BESAR & DEAD-CENTER */}
-            <div className="absolute left-1/2 top-[-8%] z-20 w-[580px] -translate-x-1/2 md:w-[760px]">
+            {/* DYNAMIC TOP LAYER — Mangkuk Tetap Besar & Ditarik Naik Pas Duduk di Plataran Batu */}
+            <div className="absolute left-1/2 top-[-22%] z-20 w-[580px] -translate-x-1/2 md:w-[760px]">
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={flavor.id}
